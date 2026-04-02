@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="description" content="Vinayak PG College Chomu, Jaipur – Affiliated to University of Rajasthan. Shaping Leaders Since 2005." />
+  <title>Vinayak PG College Chomu | Shaping Leaders Since 2005</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:   { DEFAULT: '#0a1428', deep: '#060d1a', mid: '#0f1f3d', light: '#1a3060' },
+            gold:   { DEFAULT: '#d4af77', bright: '#f5c469', dark: '#b8943f', pale: '#ede0c4' },
+            emerald:{ DEFAULT: '#10b981', dark: '#059669', pale: '#6ee7b7' },
+          },
+          fontFamily: {
+            cinzel:   ['Cinzel', 'serif'],
+            raleway:  ['Raleway', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-navy text-white font-raleway overflow-x-hidden">
+
+  <!-- ═══════════════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div id="loader" class="loader-overlay fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-navy-deep">
+    <div class="loader-logo mb-8 relative">
+      <!-- Animated crest -->
+      <div class="crest-ring crest-ring-1"></div>
+      <div class="crest-ring crest-ring-2"></div>
+      <div class="crest-core flex items-center justify-center">
+        <span class="font-cinzel font-black text-4xl text-gold-bright leading-none tracking-widest">VPG</span>
+      </div>
+    </div>
+    <h1 class="font-cinzel text-xl md:text-2xl text-gold tracking-[0.25em] mb-2">VINAYAK PG COLLEGE</h1>
+    <p class="font-raleway text-sm text-gold/60 tracking-[0.4em] uppercase mb-10">Chomu · Jaipur</p>
+    <div class="loader-bar-track">
+      <div class="loader-bar" id="loaderBar"></div>
+    </div>
+    <p class="mt-4 text-gold/40 text-xs tracking-widest font-raleway" id="loaderText">Initialising 3D Experience…</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-[900] transition-all duration-500">
+    <div class="nav-inner max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo flex items-center gap-3 group">
+        <div class="logo-badge">
+          <span class="font-cinzel font-black text-lg text-gold-bright leading-none">VPG</span>
+        </div>
+        <div class="hidden sm:block">
+          <div class="font-cinzel font-bold text-sm text-gold tracking-widest leading-tight">VINAYAK PG COLLEGE</div>
+          <div class="font-raleway text-[10px] text-gold/50 tracking-[0.3em] uppercase">Chomu, Jaipur</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="hidden lg:flex items-center gap-1">
+        <li><a href="#home"       class="nav-link">Home</a></li>
+        <li><a href="#about"      class="nav-link">About</a></li>
+        <li><a href="#courses"    class="nav-link">Courses</a></li>
+        <li><a href="#facilities" class="nav-link">Facilities</a></li>
+        <li><a href="#admissions" class="nav-link">Admissions</a></li>
+        <li><a href="#contact"    class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- CTA + Hamburger -->
+      <div class="flex items-center gap-3">
+        <a href="#admissions" class="btn-gold hidden sm:inline-flex">Apply Now</a>
+        <button id="mobileMenuBtn" class="lg:hidden hamburger-btn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu lg:hidden">
+      <ul class="flex flex-col gap-1 p-6">
+        <li><a href="#home"       class="mobile-nav-link" onclick="closeMobileMenu()">Home</a></li>
+        <li><a href="#about"      class="mobile-nav-link" onclick="closeMobileMenu()">About</a></li>
+        <li><a href="#courses"    class="mobile-nav-link" onclick="closeMobileMenu()">Courses</a></li>
+        <li><a href="#facilities" class="mobile-nav-link" onclick="closeMobileMenu()">Facilities</a></li>
+        <li><a href="#admissions" class="mobile-nav-link" onclick="closeMobileMenu()">Admissions</a></li>
+        <li><a href="#contact"    class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a></li>
+        <li class="mt-4"><a href="#admissions" class="btn-gold w-full text-center block" onclick="closeMobileMenu()">Apply Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+
+    <!-- Three.js Canvas -->
+    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full"></canvas>
+
+    <!-- Particle overlay (canvas) -->
+    <canvas id="particleCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+    <!-- Gradient overlays -->
+    <div class="absolute inset-0 hero-gradient pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent pointer-events-none"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 w-full pt-28 pb-20 flex flex-col lg:flex-row items-center gap-12">
+
+      <div class="flex-1 text-center lg:text-left">
+        <!-- Badge -->
+        <div class="hero-badge inline-flex items-center gap-2 mb-6" id="heroBadge">
+          <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span>
+          <span class="font-raleway text-xs tracking-[0.3em] text-emerald uppercase">Affiliated to University of Rajasthan</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-title font-cinzel font-black leading-tight mb-4" id="heroTitle">
+          <span class="block text-gold-bright hero-line-1">Vinayak</span>
+          <span class="block text-white hero-line-2">PG College</span>
+          <span class="block text-gold/70 text-2xl md:text-3xl font-cinzel font-semibold hero-line-3 mt-1">Chomu, Jaipur</span>
+        </h1>
+
+        <!-- Tagline -->
+        <p class="hero-tagline font-playfair italic text-xl md:text-2xl text-gold/80 mb-3" id="heroTagline">
+          "Shaping Leaders Since 2005"
+        </p>
+
+        <!-- Description -->
+        <p class="font-raleway text-sm md:text-base text-white/60 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed" id="heroDesc">
+          A premier institution of higher education fostering academic excellence, moral integrity, and holistic development for students of Rajasthan and beyond.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap gap-4 justify-center lg:justify-start" id="heroBtns">
+          <a href="#admissions" class="btn-gold-lg">
+            <span>Online Admission</span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#about" class="btn-outline-gold">Explore College</a>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="mt-12 grid grid-cols-3 gap-4 max-w-sm mx-auto lg:mx-0" id="heroStats">
+          <div class="stat-card text-center">
+            <div class="stat-number font-cinzel font-black text-gold-bright" data-target="2005">2005</div>
+            <div class="stat-label">Est. Year</div>
+          </div>
+          <div class="stat-card text-center">
+            <div class="stat-number font-cinzel font-black text-gold-bright" data-target="5000">5000+</div>
+            <div class="stat-label">Alumni</div>
+          </div>
+          <div class="stat-card text-center">
+            <div class="stat-number font-cinzel font-black text-gold-bright" data-target="15">15+</div>
+            <div class="stat-label">Programs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: 3D canvas occupies this space -->
+      <div class="flex-1 hidden lg:block" style="min-height:500px;"></div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-70">
+      <span class="font-raleway text-[10px] tracking-widest text-gold/60 uppercase">Scroll</span>
+      <div class="scroll-mouse">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       ABOUT SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="about" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="section-bg-pattern absolute inset-0 opacity-5 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <!-- Section Header -->
+      <div class="section-header text-center mb-16">
+        <div class="section-label">About Us</div>
+        <h2 class="section-title font-cinzel">About the College</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Image card -->
+        <div class="about-visual relative reveal-left">
+          <div class="about-card glass-card p-2 rounded-2xl">
+            <div class="rounded-xl overflow-hidden aspect-[4/3] bg-navy-mid relative flex items-center justify-center">
+              <!-- Stylized building illustration using CSS/SVG -->
+              <div class="building-illustration w-full h-full flex items-end justify-center pb-4 pt-8 px-8">
+                <svg viewBox="0 0 400 300" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Sky gradient -->
+                  <defs>
+                    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#0a1428"/>
+                      <stop offset="100%" stop-color="#1a3060"/>
+                    </linearGradient>
+                    <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#1e3a6e"/>
+                      <stop offset="100%" stop-color="#0f2347"/>
+                    </linearGradient>
+                    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#b8943f"/>
+                      <stop offset="50%" stop-color="#f5c469"/>
+                      <stop offset="100%" stop-color="#b8943f"/>
+                    </linearGradient>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                  </defs>
+                  <rect width="400" height="300" fill="url(#skyGrad)"/>
+                  <!-- Stars -->
+                  <circle cx="30" cy="20" r="1" fill="#f5c469" opacity="0.8"/>
+                  <circle cx="80" cy="35" r="1.5" fill="#f5c469" opacity="0.6"/>
+                  <circle cx="150" cy="15" r="1" fill="white" opacity="0.5"/>
+                  <circle cx="220" cy="25" r="1" fill="white" opacity="0.7"/>
+                  <circle cx="320" cy="18" r="1.5" fill="#f5c469" opacity="0.5"/>
+                  <circle cx="370" cy="40" r="1" fill="white" opacity="0.6"/>
+                  <!-- Ground -->
+                  <rect x="0" y="260" width="400" height="40" fill="#0d2748"/>
+                  <!-- Lawn -->
+                  <rect x="30" y="255" width="340" height="10" rx="2" fill="#059669"/>
+                  <!-- Trees left -->
+                  <rect x="40" y="210" width="8" height="50" fill="#1a3a1a"/>
+                  <ellipse cx="44" cy="200" rx="22" ry="28" fill="#065f46"/>
+                  <ellipse cx="44" cy="195" rx="16" ry="20" fill="#059669"/>
+                  <!-- Trees right -->
+                  <rect x="352" y="210" width="8" height="50" fill="#1a3a1a"/>
+                  <ellipse cx="356" cy="200" rx="22" ry="28" fill="#065f46"/>
+                  <ellipse cx="356" cy="195" rx="16" ry="20" fill="#059669"/>
+                  <!-- Main building body -->
+                  <rect x="80" y="100" width="240" height="160" fill="url(#buildingGrad)"/>
+                  <!-- Roof / Parapet -->
+                  <rect x="70" y="88" width="260" height="20" rx="2" fill="#1a3568"/>
+                  <!-- Columns -->
+                  <rect x="95" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="130" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="165" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="200" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="235" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="270" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <rect x="293" y="120" width="12" height="140" fill="#0d2040" opacity="0.6"/>
+                  <!-- Windows row 1 -->
+                  <rect x="90" y="130" width="30" height="22" rx="3" fill="#f5c469" opacity="0.9" filter="url(#glow)"/>
+                  <rect x="135" y="130" width="30" height="22" rx="3" fill="#f5c469" opacity="0.7"/>
+                  <rect x="180" y="130" width="30" height="22" rx="3" fill="#f5c469" opacity="0.8"/>
+                  <rect x="225" y="130" width="30" height="22" rx="3" fill="#f5c469" opacity="0.6"/>
+                  <rect x="270" y="130" width="30" height="22" rx="3" fill="#f5c469" opacity="0.9" filter="url(#glow)"/>
+                  <!-- Windows row 2 -->
+                  <rect x="90" y="168" width="30" height="22" rx="3" fill="#6ee7b7" opacity="0.5"/>
+                  <rect x="135" y="168" width="30" height="22" rx="3" fill="#f5c469" opacity="0.6"/>
+                  <rect x="180" y="168" width="30" height="22" rx="3" fill="#6ee7b7" opacity="0.4"/>
+                  <rect x="225" y="168" width="30" height="22" rx="3" fill="#f5c469" opacity="0.7"/>
+                  <rect x="270" y="168" width="30" height="22" rx="3" fill="#6ee7b7" opacity="0.5"/>
+                  <!-- Windows row 3 -->
+                  <rect x="90" y="206" width="30" height="22" rx="3" fill="#f5c469" opacity="0.4"/>
+                  <rect x="135" y="206" width="30" height="22" rx="3" fill="#f5c469" opacity="0.7"/>
+                  <rect x="225" y="206" width="30" height="22" rx="3" fill="#f5c469" opacity="0.5"/>
+                  <rect x="270" y="206" width="30" height="22" rx="3" fill="#f5c469" opacity="0.8"/>
+                  <!-- Main entrance -->
+                  <rect x="175" y="215" width="50" height="45" rx="4 4 0 0" fill="#0a1428"/>
+                  <rect x="178" y="218" width="20" height="42" fill="#0d1e3c"/>
+                  <rect x="202" y="218" width="20" height="42" fill="#0d1e3c"/>
+                  <!-- Door arch -->
+                  <path d="M175 215 Q200 195 225 215" fill="none" stroke="#f5c469" stroke-width="2"/>
+                  <!-- Top banner -->
+                  <rect x="80" y="88" width="240" height="12" fill="url(#goldGrad)" opacity="0.8"/>
+                  <!-- Flagpole -->
+                  <rect x="197" y="50" width="3" height="40" fill="#f5c469"/>
+                  <!-- Flag -->
+                  <path d="M200 50 L230 58 L200 66 Z" fill="#f5c469" opacity="0.9"/>
+                  <!-- College name plate -->
+                  <rect x="110" y="93" width="180" height="14" rx="2" fill="#0a1428" opacity="0.8"/>
+                  <text x="200" y="103" text-anchor="middle" font-family="serif" font-size="7" fill="#f5c469" letter-spacing="1">VINAYAK PG COLLEGE</text>
+                  <!-- Ground path -->
+                  <rect x="185" y="255" width="30" height="5" fill="#1a3568"/>
+                  <!-- Glow on building -->
+                  <rect x="80" y="100" width="240" height="160" fill="url(#buildingGrad)" opacity="0.1" filter="url(#glow)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Floating badge -->
+          <div class="absolute -bottom-4 -right-4 glass-card px-5 py-3 rounded-xl border border-gold/30">
+            <div class="font-cinzel text-gold-bright font-bold text-lg">20+</div>
+            <div class="font-raleway text-white/60 text-xs">Years of Excellence</div>
+          </div>
+          <!-- Gold accent orb -->
+          <div class="absolute -top-6 -left-6 w-20 h-20 rounded-full bg-gold/10 blur-2xl"></div>
+        </div>
+
+        <!-- Right: Text content -->
+        <div class="reveal-right">
+          <p class="font-raleway text-white/70 leading-relaxed mb-5 text-sm md:text-base">
+            Vinayak PG College, Chomu is a distinguished institution of higher learning affiliated to the <span class="text-gold font-semibold">University of Rajasthan, Jaipur</span>. Established in 2005, the college has steadily grown into a centre of academic excellence, shaping thousands of graduates across the arts, science, and commerce streams.
+          </p>
+          <p class="font-raleway text-white/70 leading-relaxed mb-8 text-sm md:text-base">
+            Located in the historic town of Chomu, the college offers a vibrant campus life with modern facilities, dedicated faculty, and a robust curriculum designed to prepare students for the competitive world. Our commitment to holistic development—intellectual, physical, and moral—remains the cornerstone of the Vinayak vision.
+          </p>
+
+          <!-- Key facts grid -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="about-fact glass-card p-4 rounded-xl border border-gold/20">
+              <div class="text-gold-bright font-cinzel font-bold text-lg mb-1">2005</div>
+              <div class="text-white/50 text-xs font-raleway uppercase tracking-wider">Year Established</div>
+            </div>
+            <div class="about-fact glass-card p-4 rounded-xl border border-emerald/20">
+              <div class="text-emerald font-cinzel font-bold text-lg mb-1">Rajasthan Univ.</div>
+              <div class="text-white/50 text-xs font-raleway uppercase tracking-wider">Affiliation</div>
+            </div>
+            <div class="about-fact glass-card p-4 rounded-xl border border-gold/20">
+              <div class="text-gold-bright font-cinzel font-bold text-lg mb-1">UG + PG</div>
+              <div class="text-white/50 text-xs font-raleway uppercase tracking-wider">Programmes Offered</div>
+            </div>
+            <div class="about-fact glass-card p-4 rounded-xl border border-emerald/20">
+              <div class="text-emerald font-cinzel font-bold text-lg mb-1">Chomu, Jaipur</div>
+              <div class="text-white/50 text-xs font-raleway uppercase tracking-wider">Location</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       CHAIRMAN / PRINCIPAL MESSAGE
+  ═══════════════════════════════════════════════════ -->
+  <section id="message" class="relative py-20 md:py-28 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-mid to-navy-deep opacity-90"></div>
+    <div class="message-glow absolute left-0 top-1/2 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="message-glow absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 bg-emerald/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 md:px-8">
+      <div class="section-header text-center mb-14">
+        <div class="section-label">Leadership</div>
+        <h2 class="section-title font-cinzel">Chairman's Message</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Chairman -->
+        <div class="message-card glass-card p-8 rounded-2xl border border-gold/20 reveal-up">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="message-avatar w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-cinzel font-black text-2xl text-navy">C</div>
+            <div>
+              <div class="font-cinzel font-bold text-gold-bright text-lg">Shri Chairman</div>
+              <div class="font-raleway text-white/50 text-sm">Vinayak Group of Education</div>
+            </div>
+            <div class="ml-auto">
+              <div class="quote-icon text-gold/20 font-serif text-6xl leading-none">"</div>
+            </div>
+          </div>
+          <p class="font-raleway text-white/70 leading-relaxed text-sm italic mb-4">
+            "Our vision at Vinayak PG College has always been to create a nurturing environment where every student discovers their true potential. We believe that quality education, combined with strong values and modern infrastructure, is the foundation of a prosperous nation."
+          </p>
+          <p class="font-raleway text-white/70 leading-relaxed text-sm italic">
+            "We are committed to continuous improvement in our academic standards and campus facilities, ensuring our students are equipped to face the challenges of tomorrow with confidence and integrity."
+          </p>
+        </div>
+
+        <!-- Principal -->
+        <div class="message-card glass-card p-8 rounded-2xl border border-emerald/20 reveal-up" style="transition-delay:0.15s">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="message-avatar w-16 h-16 rounded-full bg-gradient-to-br from-emerald-dark to-emerald flex items-center justify-center font-cinzel font-black text-2xl text-white">P</div>
+            <div>
+              <div class="font-cinzel font-bold text-emerald-pale text-lg">The Principal</div>
+              <div class="font-raleway text-white/50 text-sm">Vinayak PG College, Chomu</div>
+            </div>
+            <div class="ml-auto">
+              <div class="quote-icon text-emerald/20 font-serif text-6xl leading-none">"</div>
+            </div>
+          </div>
+          <p class="font-raleway text-white/70 leading-relaxed text-sm italic mb-4">
+            "Vinayak PG College stands as a beacon of hope and learning for the youth of Chomu and the surrounding regions. Our dedicated faculty and staff work tirelessly to ensure that every student receives an education that is both academically rigorous and personally enriching."
+          </p>
+          <p class="font-raleway text-white/70 leading-relaxed text-sm italic">
+            "I warmly welcome all aspiring students to join our institution and become part of a legacy that has, for two decades, shaped leaders who serve their communities with pride and purpose."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       COURSES SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="courses" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="section-bg-pattern absolute inset-0 opacity-5 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="section-header text-center mb-16">
+        <div class="section-label">Academic Programmes</div>
+        <h2 class="section-title font-cinzel">Our Courses</h2>
+        <div class="section-divider"></div>
+        <p class="font-raleway text-white/50 max-w-2xl mx-auto text-sm mt-4">
+          Affiliated to the University of Rajasthan, we offer a comprehensive range of undergraduate and postgraduate programmes tailored to modern academic and professional needs.
+        </p>
+      </div>
+
+      <!-- UG Programmes -->
+      <div class="mb-14">
+        <h3 class="font-cinzel font-semibold text-gold/80 text-center text-lg tracking-widest mb-8 flex items-center justify-center gap-4">
+          <span class="flex-1 h-px bg-gold/20"></span>
+          Undergraduate (UG) Programmes
+          <span class="flex-1 h-px bg-gold/20"></span>
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- BA -->
+          <div class="course-card glass-card p-6 rounded-2xl border border-gold/20 reveal-up group">
+            <div class="course-icon mb-4 w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+              <svg class="w-7 h-7 text-gold-bright" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div class="font-cinzel font-bold text-gold-bright text-xl mb-1">B.A.</div>
+            <div class="font-raleway text-white/50 text-xs uppercase tracking-wider mb-3">Bachelor of Arts</div>
+            <p class="font-raleway text-white/60 text-sm leading-relaxed mb-4">A comprehensive programme spanning Hindi, English, History, Political Science, Economics, Sociology, Geography, Public Administration, and more.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="course-tag">3 Years</span>
+              <span class="course-tag">Annual Pattern</span>
+              <span class="course-tag">Hindi / English</span>
+            </div>
+          </div>
+
+          <!-- B.Sc -->
+          <div class="course-card glass-card p-6 rounded-2xl border border-emerald/20 reveal-up group" style="transition-delay:0.1s">
+            <div class="course-icon mb-4 w-14 h-14 rounded-xl bg-emerald/10 flex items-center justify-center group-hover:bg-emerald/20 transition-colors">
+              <svg class="w-7 h-7 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="font-cinzel font-bold text-emerald text-xl mb-1">B.Sc.</div>
+            <div class="font-raleway text-white/50 text-xs uppercase tracking-wider mb-3">Bachelor of Science</div>
+            <p class="font-raleway text-white/60 text-sm leading-relaxed mb-4">Science programme covering Physics, Chemistry, Mathematics, Biology, Botany, Zoology, and Computer Science with fully equipped laboratories.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="course-tag-emerald">3 Years</span>
+              <span class="course-tag-emerald">Lab-Intensive</span>
+              <span class="course-tag-emerald">PCM / PCB</span>
+            </div>
+          </div>
+
+          <!-- B.Com -->
+          <div class="course-card glass-card p-6 rounded-2xl border border-gold/20 reveal-up group" style="transition-delay:0.2s">
+            <div class="course-icon mb-4 w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+              <svg class="w-7 h-7 text-gold-bright" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="font-cinzel font-bold text-gold-bright text-xl mb-1">B.Com.</div>
+            <div class="font-raleway text-white/50 text-xs uppercase tracking-wider mb-3">Bachelor of Commerce</div>
+            <p class="font-raleway text-white/60 text-sm leading-relaxed mb-4">Commerce programme covering Accountancy, Business Studies, Economics, Management, Tax Law, and entrepreneurship-focused curriculum.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="course-tag">3 Years</span>
+              <span class="course-tag">Annual Pattern</span>
+              <span class="course-tag">Commerce</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PG Programmes -->
+      <div>
+        <h3 class="font-cinzel font-semibold text-gold/80 text-center text-lg tracking-widest mb-8 flex items-center justify-center gap-4">
+          <span class="flex-1 h-px bg-gold/20"></span>
+          Postgraduate (PG) Programmes
+          <span class="flex-1 h-px bg-gold/20"></span>
+        </h3>
+        <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+          <!-- MA -->
+          <div class="course-card glass-card p-6 rounded-2xl border border-gold/30 reveal-up group">
+            <div class="course-icon mb-4 w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+              <svg class="w-7 h-7 text-gold-bright" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div class="font-cinzel font-bold text-gold-bright text-xl mb-1">M.A.</div>
+            <div class="font-raleway text-white/50 text-xs uppercase tracking-wider mb-3">Master of Arts</div>
+            <p class="font-raleway text-white/60 text-sm leading-relaxed mb-4">Advanced study in Hindi, History, Political Science, Economics, Sociology, and other arts disciplines for research and professional excellence.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="course-tag">2 Years</span>
+              <span class="course-tag">Semester System</span>
+            </div>
+          </div>
+
+          <!-- M.Sc -->
+          <div class="course-card glass-card p-6 rounded-2xl border border-emerald/30 reveal-up group" style="transition-delay:0.1s">
+            <div class="course-icon mb-4 w-14 h-14 rounded-xl bg-emerald/10 flex items-center justify-center group-hover:bg-emerald/20 transition-colors">
+              <svg class="w-7 h-7 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            </div>
+            <div class="font-cinzel font-bold text-emerald text-xl mb-1">M.Sc.</div>
+            <div class="font-raleway text-white/50 text-xs uppercase tracking-wider mb-3">Master of Science</div>
+            <p class="font-raleway text-white/60 text-sm leading-relaxed mb-4">Postgraduate science programme in Chemistry, Mathematics, Physics, and Life Sciences with a focus on research methodology and practical skills.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="course-tag-emerald">2 Years</span>
+              <span class="course-tag-emerald">Semester System</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FACILITIES SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="facilities" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy to-navy-deep opacity-80"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 md:px-8">
+      <div class="section-header text-center mb-16">
+        <div class="section-label">Campus Life</div>
+        <h2 class="section-title font-cinzel">Our Facilities</h2>
+        <div class="section-divider"></div>
+        <p class="font-raleway text-white/50 max-w-2xl mx-auto text-sm mt-4">
+          Modern infrastructure designed to foster academic achievement, creative growth, and physical well-being for every student on campus.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Laboratory -->
+        <div class="facility-card reveal-up">
+          <div class="facility-icon-wrap facility-icon-gold">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-gold-bright text-lg mb-2">Laboratory</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            Well-equipped science laboratories for Physics, Chemistry, Biology, Botany, and Zoology with modern instruments and safety standards compliant with university requirements.
+          </p>
+          <div class="facility-badge mt-4">Science Labs · Practical Training</div>
+        </div>
+
+        <!-- Games & Sports -->
+        <div class="facility-card reveal-up" style="transition-delay:0.05s">
+          <div class="facility-icon-wrap facility-icon-emerald">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-emerald text-lg mb-2">Games &amp; Sports</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            Expansive sports ground accommodating Cricket, Football, Volleyball, Kabaddi, Kho-Kho, and Athletics. Trained physical education instructors guide students toward inter-college championships.
+          </p>
+          <div class="facility-badge-emerald mt-4">Outdoor Sports · Athletics</div>
+        </div>
+
+        <!-- Multipurpose Hall -->
+        <div class="facility-card reveal-up" style="transition-delay:0.1s">
+          <div class="facility-icon-wrap facility-icon-gold">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-gold-bright text-lg mb-2">Multipurpose Hall</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            A spacious, air-conditioned hall for seminars, cultural events, annual functions, guest lectures, and inter-college competitions. Equipped with modern audio-visual systems.
+          </p>
+          <div class="facility-badge mt-4">Seminars · Cultural Events</div>
+        </div>
+
+        <!-- Classrooms -->
+        <div class="facility-card reveal-up" style="transition-delay:0.15s">
+          <div class="facility-icon-wrap facility-icon-emerald">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-emerald text-lg mb-2">Classrooms</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            Spacious, well-ventilated classrooms with modern furniture, projectors, and smart boards. Designed for optimal learning with proper acoustics and natural lighting.
+          </p>
+          <div class="facility-badge-emerald mt-4">Smart Boards · Projectors</div>
+        </div>
+
+        <!-- Library -->
+        <div class="facility-card reveal-up" style="transition-delay:0.2s">
+          <div class="facility-icon-wrap facility-icon-gold">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-gold-bright text-lg mb-2">Library</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            A well-stocked library with thousands of books, journals, reference materials, and digital resources. A quiet, dedicated reading room supports deep study and examination preparation.
+          </p>
+          <div class="facility-badge mt-4">Books · Journals · Reading Room</div>
+        </div>
+
+        <!-- Computer Lab -->
+        <div class="facility-card reveal-up" style="transition-delay:0.25s">
+          <div class="facility-icon-wrap facility-icon-emerald">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-cinzel font-bold text-emerald text-lg mb-2">Computer Lab</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed">
+            A fully functional computer laboratory with high-speed internet access, modern systems, and licensed software. Used for practical training, project work, and digital skill development.
+          </p>
+          <div class="facility-badge-emerald mt-4">Internet · Modern Systems</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       ADMISSIONS / PLACEMENTS SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="admissions" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="absolute inset-0 admission-gradient"></div>
+    <div class="admission-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 md:px-8">
+      <div class="section-header text-center mb-16">
+        <div class="section-label">Join Us</div>
+        <h2 class="section-title font-cinzel">Online Admission</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+        <!-- Admission Info -->
+        <div class="reveal-left">
+          <h3 class="font-cinzel font-bold text-gold-bright text-2xl mb-4">Admission 2025–2026</h3>
+          <p class="font-raleway text-white/60 text-sm leading-relaxed mb-6">
+            Vinayak PG College welcomes applications for all UG and PG programmes for the academic session 2025–26. Admissions are based on merit in qualifying examinations as per the University of Rajasthan norms.
+          </p>
+
+          <!-- Steps -->
+          <div class="space-y-4 mb-8">
+            <div class="admission-step flex items-start gap-4">
+              <div class="step-num">01</div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Fill Online Form</div>
+                <p class="font-raleway text-white/50 text-xs">Complete the online admission form with personal, academic, and course details.</p>
+              </div>
+            </div>
+            <div class="admission-step flex items-start gap-4">
+              <div class="step-num">02</div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Submit Documents</div>
+                <p class="font-raleway text-white/50 text-xs">Upload scanned copies of marksheets, identity proof, and passport-sized photograph.</p>
+              </div>
+            </div>
+            <div class="admission-step flex items-start gap-4">
+              <div class="step-num">03</div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Pay Fee Online</div>
+                <p class="font-raleway text-white/50 text-xs">Pay admission and tuition fees securely through the college payment portal.</p>
+              </div>
+            </div>
+            <div class="admission-step flex items-start gap-4">
+              <div class="step-num">04</div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Confirmation</div>
+                <p class="font-raleway text-white/50 text-xs">Receive your admission confirmation and student ID. Report to college on the scheduled date.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn-gold-lg inline-flex">
+            Apply for Admission
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <!-- Eligibility Cards -->
+        <div class="reveal-right">
+          <h3 class="font-cinzel font-bold text-white text-xl mb-6">Eligibility &amp; Key Dates</h3>
+          <div class="space-y-4">
+
+            <div class="eligibility-card glass-card p-5 rounded-xl border border-gold/20">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-cinzel font-semibold text-gold-bright text-sm">B.A. / B.Sc. / B.Com.</span>
+                <span class="badge-gold">UG</span>
+              </div>
+              <ul class="font-raleway text-white/60 text-xs space-y-1">
+                <li>• Passed 10+2 or equivalent from a recognised board</li>
+                <li>• Minimum 45% aggregate marks (relaxation for SC/ST)</li>
+                <li>• Age as per University of Rajasthan norms</li>
+              </ul>
+            </div>
+
+            <div class="eligibility-card glass-card p-5 rounded-xl border border-emerald/20">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-cinzel font-semibold text-emerald text-sm">M.A. / M.Sc.</span>
+                <span class="badge-emerald">PG</span>
+              </div>
+              <ul class="font-raleway text-white/60 text-xs space-y-1">
+                <li>• Graduation in relevant subject from a recognised university</li>
+                <li>• Minimum 48% marks in bachelor's degree</li>
+                <li>• Admission subject to entrance / merit as per Rajasthan University</li>
+              </ul>
+            </div>
+
+            <div class="glass-card p-5 rounded-xl border border-gold/10 bg-gold/5">
+              <div class="font-cinzel font-semibold text-gold text-sm mb-3">Important Dates 2025–26</div>
+              <div class="grid grid-cols-2 gap-3 font-raleway text-xs">
+                <div><span class="text-white/40">Form Start:</span><br><span class="text-gold-bright font-semibold">June 2025</span></div>
+                <div><span class="text-white/40">Last Date:</span><br><span class="text-gold-bright font-semibold">July 2025</span></div>
+                <div><span class="text-white/40">Session Begins:</span><br><span class="text-gold-bright font-semibold">August 2025</span></div>
+                <div><span class="text-white/40">Helpline:</span><br><span class="text-gold-bright font-semibold">9414247984</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section id="contact" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="section-bg-pattern absolute inset-0 opacity-5 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="section-header text-center mb-16">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title font-cinzel">Contact Us</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+
+        <!-- Contact Info -->
+        <div class="reveal-left">
+          <h3 class="font-cinzel font-bold text-gold-bright text-2xl mb-8">Reach Us</h3>
+
+          <div class="space-y-6">
+            <div class="contact-item flex items-start gap-5">
+              <div class="contact-icon">
+                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Address</div>
+                <p class="font-raleway text-white/60 text-sm leading-relaxed">Vinayak PG College,<br>Chomu, Jaipur,<br>Rajasthan, India</p>
+              </div>
+            </div>
+
+            <div class="contact-item flex items-start gap-5">
+              <div class="contact-icon">
+                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Phone</div>
+                <a href="tel:9414247984" class="font-raleway text-white/60 text-sm hover:text-gold-bright transition-colors">+91 94142 47984</a>
+              </div>
+            </div>
+
+            <div class="contact-item flex items-start gap-5">
+              <div class="contact-icon">
+                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Email</div>
+                <a href="mailto:vinayakgroup2003@gmail.com" class="font-raleway text-white/60 text-sm hover:text-gold-bright transition-colors break-all">vinayakgroup2003@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item flex items-start gap-5">
+              <div class="contact-icon">
+                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-cinzel font-semibold text-gold text-sm mb-1">Office Hours</div>
+                <p class="font-raleway text-white/60 text-sm">Monday – Saturday<br>9:00 AM – 5:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="reveal-right">
+          <form class="contact-form glass-card p-8 rounded-2xl border border-gold/20" id="contactForm" onsubmit="handleFormSubmit(event)">
+            <h3 class="font-cinzel font-bold text-gold-bright text-xl mb-6">Send a Message</h3>
+
+            <div class="space-y-4">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" required placeholder="Your full name" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" required placeholder="+91 XXXXX XXXXX" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" placeholder="your@email.com" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Course of Interest</label>
+                <select class="form-input">
+                  <option value="">Select a programme</option>
+                  <option>B.A. (Bachelor of Arts)</option>
+                  <option>B.Sc. (Bachelor of Science)</option>
+                  <option>B.Com. (Bachelor of Commerce)</option>
+                  <option>M.A. (Master of Arts)</option>
+                  <option>M.Sc. (Master of Science)</option>
+                  <option>Other / General Enquiry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea rows="4" placeholder="Your query or message..." class="form-input resize-none"></textarea>
+              </div>
+              <button type="submit" class="btn-gold-lg w-full justify-center">
+                Send Message
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              </button>
+            </div>
+
+            <div id="formSuccess" class="hidden mt-4 p-4 rounded-xl bg-emerald/10 border border-emerald/30 text-emerald text-sm font-raleway text-center">
+              ✓ Message sent successfully. We will contact you shortly.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════ -->
+  <footer class="relative bg-navy-deep border-t border-gold/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="logo-badge">
+              <span class="font-cinzel font-black text-lg text-gold-bright leading-none">VPG</span>
+            </div>
+            <div>
+              <div class="font-cinzel font-bold text-sm text-gold tracking-widest">VINAYAK PG COLLEGE</div>
+              <div class="font-raleway text-[10px] text-gold/40 tracking-[0.3em] uppercase">Chomu, Jaipur · Est. 2005</div>
+            </div>
+          </div>
+          <p class="font-raleway text-white/40 text-xs leading-relaxed max-w-xs mb-4">
+            Affiliated to the University of Rajasthan, Jaipur. Committed to academic excellence and holistic development of students since 2005.
+          </p>
+          <p class="font-playfair italic text-gold/50 text-sm">"Shaping Leaders Since 2005"</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <div class="font-cinzel font-semibold text-gold/80 text-xs tracking-widest uppercase mb-4">Quick Links</div>
+          <ul class="space-y-2">
+            <li><a href="#home"       class="footer-link">Home</a></li>
+            <li><a href="#about"      class="footer-link">About College</a></li>
+            <li><a href="#courses"    class="footer-link">Courses</a></li>
+            <li><a href="#facilities" class="footer-link">Facilities</a></li>
+            <li><a href="#admissions" class="footer-link">Online Admission</a></li>
+            <li><a href="#contact"    class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-cinzel font-semibold text-gold/80 text-xs tracking-widest uppercase mb-4">Contact</div>
+          <div class="space-y-3 font-raleway text-xs text-white/40">
+            <div>Chomu, Jaipur, Rajasthan, India</div>
+            <div><a href="tel:9414247984" class="hover:text-gold transition-colors">+91 94142 47984</a></div>
+            <div><a href="mailto:vinayakgroup2003@gmail.com" class="hover:text-gold transition-colors break-all">vinayakgroup2003@gmail.com</a></div>
+            <div class="pt-2">
+              <a href="#admissions" class="btn-gold text-xs py-2 px-4 inline-block">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gold/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="font-raleway text-white/20 text-xs text-center">© 2025 Vinayak PG College, Chomu. All rights reserved.</p>
+        <p class="font-raleway text-white/20 text-xs text-center">Affiliated to University of Rajasthan, Jaipur</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating "Apply" button (mobile) -->
+  <a href="#admissions" class="fixed bottom-6 right-6 z-[800] btn-gold-lg shadow-2xl shadow-gold/20 sm:hidden">
+    Apply Now
+  </a>
+
+  <!-- JS Files -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
